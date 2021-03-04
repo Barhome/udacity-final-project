@@ -1,0 +1,22 @@
+.main-section-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "pic in"
+    "pic out";
+  border: solid 2px red;
+}
+
+.destination-image {
+  grid-area: pic;
+  border: solid 2px blue;
+}
+
+.destination-info {
+  grid-area: in;
+  border: solid 2px green;
+}
+.destination-info-display {
+  grid-area: out;
+  border: solid 2px yellow;
+}
