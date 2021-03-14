@@ -1,7 +1,7 @@
 // import { testJs } from "./js/test.js";
 // import "./styles/test.scss";
 // testJs();
-
+import { postUserUrlData } from "./js/handleInputs";
 import "./styles/header.scss";
 import "./styles/grid.scss";
 import "./styles/base.scss";
