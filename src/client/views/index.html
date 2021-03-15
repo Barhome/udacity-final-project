@@ -19,24 +19,22 @@
       <div class="destination-info">
         <div class="destination-input">
           <label>Where do you want to go?</label>
-          <input type="text" placeholder="Enter Your Destination" />
+          <input
+            id="destination"
+            type="text"
+            placeholder="Enter Your Destination"
+          />
         </div>
-        <div class="destination-date">
+        <div class="trip-date-input">
           <label>When do you want to go? </label>
-          <input type="text" placeholder="Enter your Date" />
+          <input id="trip-date" type="text" placeholder="Enter your Date" />
         </div>
         <div class="destination-btns">
-          <button>Save Your Trip</button>
-          <button>Cancel Your Trip</button>
+          <button id="save-trip">Save Your Trip</button>
+          <button id="delete-trip">Cancel Your Trip</button>
         </div>
       </div>
-      <div class="destination-info-display">
-        <p>Paris France is 10 light years away from here!!</p>
-        <p>
-          Typical Weather for then is: <br />
-          Mostly cloudy through out the day.
-        </p>
-      </div>
+      <div id="display-info" class="destination-info-display"></div>
     </section>
   </body>
 </html>

@@ -12,7 +12,8 @@ const projectData = {};
 projectData.geonames = {};
 projectData.weatherApi = {};
 projectData.pixabayApi = {};
-let userDestination = "";
+let destination = "";
+let tripDate = "";
 // setting up server requirements
 
 let path = require("path");
@@ -51,13 +52,50 @@ app.listen(3000, function () {
   console.log("Example app listening on port 3000!");
 });
 
+//helper function to check the remaining days to your trip day
+
+function getRemainingDays(date) {
+  const today = new Date();
+  console.log(today);
+  const tripDay = new Date(date);
+  console.log(tripDay);
+  const remainingDays = Math.round((tripDay - today) / (1000 * 60 * 60 * 24));
+  return remainingDays;
+}
+
+// helper function to extract the matching traveling day data from weatherbit api
+
+function getTravelingDayData(tripDate, weatherApiData) {
+  projectData.weatherApi.status = "offline";
+  for (let i = 0; i < weatherApiData.data.length; i++) {
+    if (weatherApiData.data[i].valid_date === tripDate) {
+      projectData.weatherApi.temp = weatherApiData.data[i].temp;
+      projectData.weatherApi.description =
+        weatherApiData.data[i].weather.description;
+      projectData.weatherApi.remainingDays = getRemainingDays(tripDate);
+      projectData.weatherApi.status = "online";
+      projectData.weatherApi.weatherStatus =
+        "You have planned your trip within 16 days you can get information about the weather in your destination";
+      break;
+    }
+  }
+
+  if (projectData.weatherApi.status === "offline") {
+    projectData.weatherApi.weatherStatus =
+      "You need to plan your trip within 16 days from now to get information about the weather in your destination";
+    projectData.weatherApi.temp = "no temprature to show";
+    projectData.weatherApi.remainingDays = getRemainingDays(tripDate);
+  }
+}
+
 // creating post route for user Inputs
 
 const postUserInputs = async function (req, res) {
   console.log(req.body);
-  userDestination = req.body.userDestination;
+  destination = req.body.destination;
+  tripDate = req.body.tripDate;
   const requestGeonames = await fetch(
-    `http://api.geonames.org/searchJSON?q=${userDestination}&maxRows=1&username=${key_geonames}`
+    `http://api.geonames.org/searchJSON?q=${destination}&maxRows=1&username=${key_geonames}`
   );
   const geonamesData = await requestGeonames.json();
   const requestWeatherApi = await fetch(
@@ -65,16 +103,18 @@ const postUserInputs = async function (req, res) {
   );
   const weatherApiData = await requestWeatherApi.json();
   const requestPixabayApi = await fetch(
-    `https://pixabay.com/api/?key=${key_pixabay}&q=${userDestination}+tourism&image_type=photo`
+    `https://pixabay.com/api/?key=${key_pixabay}&q=${destination}+tourism&image_type=photo`
   );
   const pixabayApiData = await requestPixabayApi.json();
 
   try {
-    console.log(weatherApiData.data[0].temp);
-    console.log(weatherApiData);
+    //console.log(weatherApiData.data[0].temp);
+    //console.log(weatherApiData);
     projectData.geonames.lng = geonamesData.geonames[0].lng;
     projectData.geonames.lat = geonamesData.geonames[0].lat;
-    projectData.weatherApi.temp = weatherApiData.data[0].temp;
+    //get weather data for the exact traveling day
+    getTravelingDayData(tripDate, weatherApiData);
+    //projectData.weatherApi.temp = weatherApiData.data[0].temp;
     projectData.pixabayApi.imageUrl = pixabayApiData.hits[0].largeImageURL;
 
     console.log(projectData);
@@ -83,4 +123,5 @@ const postUserInputs = async function (req, res) {
     console.log(`error:${error}`);
   }
 };
+
 app.post("/postUserInputs", postUserInputs);
