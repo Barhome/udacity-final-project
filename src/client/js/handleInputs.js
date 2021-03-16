@@ -1,6 +1,6 @@
 // create function to Post Data
 
-import { check } from "prettier";
+//import { check } from "prettier";
 
 const postUserUrlData = async function (url = "", data = {}) {
   const response = await fetch(url, {
@@ -43,9 +43,6 @@ async function handleInputs() {
 
   const destination = document.getElementById("destination").value;
   const tripDate = document.getElementById("trip-date").value;
-  const remainingDays = document.getElementById("remaining-days");
-  const averageTemp = document.getElementById("average-temp");
-  const weatherDescription = document.getElementById("weather-description");
   const displayInfo = document.getElementById("display-info");
 
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
@@ -80,5 +77,4 @@ async function handleInputs() {
   }
 }
 
-document.getElementById("save-trip").addEventListener("click", handleInputs);
-export { postUserUrlData };
+export { postUserUrlData, handleInputs };
