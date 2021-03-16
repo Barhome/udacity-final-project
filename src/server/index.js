@@ -52,6 +52,11 @@ app.listen(3000, function () {
   console.log("Example app listening on port 3000!");
 });
 
+//helper function to remove spaces from a string
+
+function removeSpaces(stringData) {
+  return stringData.split(" ").join("");
+}
 //helper function to check the remaining days to your trip day
 
 function getRemainingDays(date) {
@@ -103,7 +108,9 @@ const postUserInputs = async function (req, res) {
   );
   const weatherApiData = await requestWeatherApi.json();
   const requestPixabayApi = await fetch(
-    `https://pixabay.com/api/?key=${key_pixabay}&q=${destination}+tourism&image_type=photo`
+    `https://pixabay.com/api/?key=${key_pixabay}&q=${removeSpaces(
+      destination
+    )}+tourism&image_type=photo`
   );
   const pixabayApiData = await requestPixabayApi.json();
 
