@@ -44,6 +44,7 @@ async function handleInputs() {
   const destination = document.getElementById("destination").value;
   const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
+  const cityImage = document.getElementById("city-image");
 
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
   if (!checkDate(tripDate)) {
@@ -69,11 +70,14 @@ async function handleInputs() {
         <p class="weather-description">Typical weather description is:"${
           data.weatherApi.description
         }"</p>`;
+    // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
+    cityImage.src = data.pixabayApi.imageUrl;
   }
   // offline status
   else {
     displayInfo.innerHTML = "";
     displayInfo.innerHTML = `<p>${data.weatherApi.weatherStatus}</p>`;
+    cityImage.src = Client.imgParis;
   }
 }
 
