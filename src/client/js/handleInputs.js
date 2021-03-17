@@ -77,7 +77,7 @@ async function handleInputs() {
   else {
     displayInfo.innerHTML = "";
     displayInfo.innerHTML = `<p>${data.weatherApi.weatherStatus}</p>`;
-    cityImage.src = Client.imgParis;
+    cityImage.src = Client.imgStart;
   }
 }
 

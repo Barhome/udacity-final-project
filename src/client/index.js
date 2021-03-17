@@ -5,9 +5,9 @@ import { handleInputs } from "./js/handleInputs";
 import "./styles/header.scss";
 import "./styles/grid.scss";
 import "./styles/base.scss";
-import imgParis from "./media/images/1.jpg";
+import imgStart from "./media/images/1.jpg";
 const img = document.getElementById("city-image");
-img.src = imgParis;
+img.src = imgStart;
 document.getElementById("save-trip").addEventListener("click", handleInputs);
 
-export { imgParis };
+export { imgStart };
