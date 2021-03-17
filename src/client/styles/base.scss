@@ -2,13 +2,19 @@ html,
 body {
   height: 100%;
   margin: 0;
+  background: lightblue;
 }
 section {
   height: 100vh;
 }
 section:nth-child(1) {
-  background: lightblue;
   overflow: auto;
+}
+section:nth-child(2) {
+  overflow: auto;
+}
+section:nth-child(3) {
+  height: auto;
 }
 .intro-container {
   margin-top: 100px;
@@ -21,7 +27,7 @@ section:nth-child(1) {
 .btns-container {
   width: 50%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 .img-intro {
@@ -34,4 +40,18 @@ section:nth-child(1) {
 
 .city-image {
   width: 100%;
+}
+
+.btn {
+  padding: 10px 30px;
+  font: italic 600 16px "segoe ui";
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  background-color: white;
+}
+
+.btn:hover {
+  background-color: #1b6e34;
+  color: white;
 }

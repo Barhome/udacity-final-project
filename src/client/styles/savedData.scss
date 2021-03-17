@@ -1,0 +1,15 @@
+.trips-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: solid 2px red;
+}
+
+.card {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img-card {
+  width: 100%;
+}

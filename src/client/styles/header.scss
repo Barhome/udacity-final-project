@@ -2,7 +2,14 @@
   margin: 0;
 }
 .app-header {
-  background-color: sandybrown;
+  background-image: linear-gradient(
+    45deg,
+    #bb66bb,
+    #ffaa11,
+    #ccaa55,
+    #ddaa55,
+    #44ee77
+  );
   padding: 20px;
   display: flex;
   position: fixed;

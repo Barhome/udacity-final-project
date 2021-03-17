@@ -3,7 +3,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "pic in"
-    "pic out";
+    "out out";
   border: solid 2px red;
 }
 
@@ -19,4 +19,40 @@
 .destination-info-display {
   grid-area: out;
   border: solid 2px yellow;
+  margin: auto;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+  font: italic 600 16px "segoe ui";
+}
+.input-data {
+  width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: solid 1px grey;
+  background-color: white;
+  margin-top: 5px;
+}
+
+.input-data:focus {
+  outline: none;
+}
+
+.destination-btns {
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.results-btns {
+  margin-top: 30px;
 }

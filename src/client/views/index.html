@@ -6,7 +6,7 @@
   </head>
   <body>
     <!-- <h1>Test html</h1> -->
-
+    <!-- introduction section -->
     <section>
       <header class="app-header">
         <h1 class="app-title">My Travel Planner</h1>
@@ -16,8 +16,14 @@
           <img src="" alt="" id="img-intro" class="img-intro" />
         </div>
         <div class="btns-container">
-          <button>Get Information About Your Next Destination</button>
-          <button>Diplay Your Saved Trips</button>
+          <button class="btn">
+            Get Information About<br />
+            Your Next Destination
+          </button>
+          <button class="btn all-trips">
+            Display<br />
+            Your Saved Trips
+          </button>
         </div>
       </div>
     </section>
@@ -29,24 +35,60 @@
         <!-- </div> -->
       </div>
       <div class="destination-info">
-        <div class="destination-input">
+        <div class="destination-input input-group">
           <label>Where do you want to go?</label>
           <input
-            id="destination"
+            id="destination-country"
+            class="input-data"
             type="text"
-            placeholder="Enter Your Destination"
+            placeholder="Enter Your Destination Country"
+          />
+          <input
+            id="destination-city"
+            class="input-data"
+            type="text"
+            placeholder="Enter Your Destination City"
           />
         </div>
-        <div class="trip-date-input">
+        <div class="trip-date-input input-group">
           <label>When do you want to go? </label>
-          <input id="trip-date" type="text" placeholder="Enter your Date" />
+          <input
+            id="trip-date"
+            class="input-data"
+            type="text"
+            placeholder="Enter your Date: dd/mm/yyyy"
+          />
         </div>
         <div class="destination-btns">
-          <button id="save-trip">Save Your Trip</button>
-          <button id="delete-trip">Cancel Your Trip</button>
+          <button id="show-trip" class="btn">
+            Show <br />Your Trip Details
+          </button>
+          <button id="all-trips" class="btn all-trips">
+            Display<br />
+            Your Saved Trips
+          </button>
         </div>
       </div>
-      <div id="display-info" class="destination-info-display"></div>
+      <div id="display-info" class="destination-info-display">
+        <h1>Waiting for your search results</h1>
+        <div class="results-btns">
+          <button id="save-trip" class="btn">Save <br />Trip Details</button>
+          <button id="delete-trip" class="btn">
+            Search <br />Another Trip
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="trips-grid">
+      <div class="card">
+        <div class="">
+          <img class="img-card" src="" alt="" />
+        </div>
+        <h4>Your destination is about 3 days from now</h4>
+        <h4>Expected Degree is 40 degree</h4>
+        <h4>Weather description</h4>
+        <button id="delete" class="btn">Delete</button>
+      </div>
     </section>
   </body>
 </html>
