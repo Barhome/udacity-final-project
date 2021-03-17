@@ -1,3 +1,33 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+section {
+  height: 100vh;
+}
+section:nth-child(1) {
+  background: lightblue;
+  overflow: auto;
+}
+.intro-container {
+  margin-top: 100px;
+  display: flex;
+}
+.img-intro-container {
+  width: 50%;
+  padding-left: 50px;
+}
+.btns-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img-intro {
+  width: 100%;
+}
+
 .img-card {
   width: 100%;
 }
