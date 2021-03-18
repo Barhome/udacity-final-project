@@ -1,5 +1,8 @@
-// create function to Post Data
+// a placeholder for the data in case the user choose to save data
 
+let tripSaver = {};
+
+// create function to Post Data
 const postUserUrlData = async function (url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -45,6 +48,8 @@ async function handleInputs() {
   const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
   const cityImage = document.getElementById("city-image");
+  // const saveTrip = document.getElementById("save-trip");
+  // const deleteTrip = document.getElementById("delete-trip");
 
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
   if (!checkDate(tripDate)) {
@@ -70,9 +75,23 @@ async function handleInputs() {
         } degree</p>
         <p class="weather-description">Typical weather description is:"${
           data.weatherApi.description
-        }"</p>`;
+        }"</p>
+        <div class="results-btns">
+          <button id="save-trip" class="btn">Save <br />Trip Details</button>
+          <button id="delete-trip" class="btn">
+            Search <br />Another Trip
+          </button>
+        </div>`;
     // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
     cityImage.src = data.pixabayApi.imageUrl;
+    // assigning  final trip data to tripSaver Object
+    tripSaver.destinationCountry = destinationCountry;
+    tripSaver.destinationCity = destinationCity;
+    tripSaver.remainingDays = data.weatherApi.remainingDays;
+    tripSaver.destinationTemp = data.weatherApi.temp;
+    tripSaver.weatherDescription = data.weatherApi.description;
+    tripSaver.destinationImage = data.pixabayApi.imageUrl;
+    console.log(tripSaver);
   }
   // offline status
   else {
