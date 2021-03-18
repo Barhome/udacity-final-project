@@ -1,7 +1,12 @@
 // import { testJs } from "./js/test.js";
 // import "./styles/test.scss";
 // testJs();
-import { handleInputs, scrollToFindDestination } from "./js/handleInputs";
+import {
+  addTrip,
+  handleInputs,
+  scrollToFindDestination,
+  showTrips,
+} from "./js/handleInputs";
 import "./styles/header.scss";
 import "./styles/grid.scss";
 import "./styles/base.scss";
@@ -23,4 +28,8 @@ document
   .getElementById("find-destination-btn")
   .addEventListener("click", scrollToFindDestination);
 
-export { imgStart };
+const allTrips = document.getElementsByClassName("all-trips");
+for (let i = 0; i < allTrips.length; i++) {
+  allTrips[i].addEventListener("click", showTrips);
+}
+export { imgStart, addTrip };

@@ -1,6 +1,20 @@
 // a placeholder for the data in case the user choose to save data
 
 let tripSaver = {};
+// a placeholder for the data stored in localstorage
+let localTripSaver;
+// get data from local storage
+console.log(localStorage.getItem("localTripSaver"));
+if (localStorage.getItem("localTripSaver") == null) {
+  console.log(localStorage.getItem("localTripSaver"));
+  localTripSaver = [];
+  console.log("check null");
+  console.log(localTripSaver);
+} else {
+  localTripSaver = JSON.parse(localStorage.getItem("localTripSaver"));
+  console.log("check full");
+  console.log(localTripSaver);
+}
 
 // create function to Post Data
 const postUserUrlData = async function (url = "", data = {}) {
@@ -39,6 +53,17 @@ function checkDate(date) {
   else return false;
 }
 
+// helper function to scroll to find destination section
+function scrollToFindDestination() {
+  const findDestinationSection = document.getElementById("find-destination");
+  let sectionBorders = findDestinationSection.getBoundingClientRect();
+  window.scrollTo({
+    left: sectionBorders.left + window.pageXOffset,
+    top: sectionBorders.top + window.pageYOffset - 50,
+    behavior: "smooth",
+  });
+}
+//
 async function handleInputs() {
   //Selecting Dom Elements
 
@@ -77,7 +102,7 @@ async function handleInputs() {
           data.weatherApi.description
         }"</p>
         <div class="results-btns">
-          <button id="save-trip" class="btn">Save <br />Trip Details</button>
+          <button id="save-trip" class="btn" onclick="Client.addTrip()">Save <br />Trip Details</button>
           <button id="delete-trip" class="btn">
             Search <br />Another Trip
           </button>
@@ -100,15 +125,54 @@ async function handleInputs() {
     cityImage.src = Client.imgStart;
   }
 }
-// helper function to scroll to find destination section
-function scrollToFindDestination() {
-  const findDestinationSection = document.getElementById("find-destination");
-  let sectionBorders = findDestinationSection.getBoundingClientRect();
-  window.scrollTo({
-    left: sectionBorders.left + window.pageXOffset,
-    top: sectionBorders.top + window.pageYOffset - 50,
-    behavior: "smooth",
-  });
+// helper function to add a trip to local storage
+
+function addTrip() {
+  const trip = {
+    destinationCountry: tripSaver.destinationCountry,
+    destinationCity: tripSaver.destinationCity,
+    remainingDays: tripSaver.remainingDays,
+    destinationTemp: tripSaver.destinationTemp,
+    weatherDescription: tripSaver.weatherDescription,
+    destinationImage: tripSaver.destinationImage,
+  };
+  localTripSaver.push(trip);
+  localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
+  console.log(localTripSaver);
+  alert("Your trip has been saved to your local system:Local Storage");
 }
 
-export { postUserUrlData, handleInputs, scrollToFindDestination };
+// helper function to show all the trips stored in local storage
+
+function showTrips() {
+  let tripsGrid = "";
+  // looping to create a grid
+  for (let i = 0; i < localTripSaver.length; i++) {
+    tripsGrid += `<div class="card">
+    <div class="">
+      <img class="img-card" src="" alt="" id="img-card-${i}"/>
+    </div>
+    <h4>Your destination is about ${localTripSaver[i].remainingDays} ${
+      localTripSaver[i].remainingDays > 1 ? "days" : "day"
+    } from now</h4>
+    <h4>Expected Degree is ${localTripSaver[i].destinationTemp} degree</h4>
+    <h4>Weather description:${localTripSaver[i].weatherDescription}</h4>
+    <button id="delete" class="btn">Delete</button>
+  </div>`;
+  }
+  document.getElementById("trips-grid").innerHTML = tripsGrid;
+
+  // looping to inject images in each card
+  for (let i = 0; i < localTripSaver.length; i++) {
+    const localCityimage = document.getElementById(`img-card-${i}`);
+    localCityimage.src = localTripSaver[i].destinationImage;
+  }
+}
+
+export {
+  postUserUrlData,
+  handleInputs,
+  scrollToFindDestination,
+  addTrip,
+  showTrips,
+};
