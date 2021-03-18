@@ -16,7 +16,7 @@
           <img src="" alt="" id="img-intro" class="img-intro" />
         </div>
         <div class="btns-container">
-          <button class="btn">
+          <button class="btn" id="find-destination-btn">
             Get Information About<br />
             Your Next Destination
           </button>
@@ -27,8 +27,8 @@
         </div>
       </div>
     </section>
-
-    <section class="main-section-grid">
+    <!-- find destination section -->
+    <section class="main-section-grid" id="find-destination">
       <div class="destination-image">
         <!-- <div class="img-card"> -->
         <img src="" alt="trip image" id="city-image" class="city-image" />
@@ -69,16 +69,20 @@
           </button>
         </div>
       </div>
+      <!-- display fetched data from apis -->
       <div id="display-info" class="destination-info-display">
         <h1>Waiting for your search results</h1>
         <div class="results-btns">
-          <button id="save-trip" class="btn">Save <br />Trip Details</button>
-          <button id="delete-trip" class="btn">
+          <button id="save-trip" class="btn hide">
+            Save <br />Trip Details
+          </button>
+          <button id="delete-trip" class="btn hide">
             Search <br />Another Trip
           </button>
         </div>
       </div>
     </section>
+    <!-- Saved trips in from local storage -->
     <section class="trips-grid">
       <div class="card">
         <div class="">

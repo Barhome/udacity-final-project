@@ -1,7 +1,5 @@
 // create function to Post Data
 
-//import { check } from "prettier";
-
 const postUserUrlData = async function (url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -41,7 +39,9 @@ function checkDate(date) {
 async function handleInputs() {
   //Selecting Dom Elements
 
-  const destination = document.getElementById("destination").value;
+  const destinationCity = document.getElementById("destination-city").value;
+  const destinationCountry = document.getElementById("destination-country")
+    .value;
   const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
   const cityImage = document.getElementById("city-image");
@@ -56,12 +56,13 @@ async function handleInputs() {
 
   // Sending destination and tripDate to server and obtaining data required to be viewed on ui
   const data = await postUserUrlData("http://localhost:3000/postUserInputs", {
-    destination,
+    destinationCity,
+    destinationCountry,
     tripDate: dateFormat(tripDate),
   });
 
   if (data.weatherApi.status === "online") {
-    displayInfo.innerHTML = `<p class="remaining-days">Your ${destination} trip is about ${
+    displayInfo.innerHTML = `<p class="remaining-days">Your trip to ${destinationCity} in ${destinationCountry} is about ${
       data.weatherApi.remainingDays
     } ${data.weatherApi.remainingDays > 1 ? "days" : "day"} away from today</p>
         <p class="average-temp">Average expected temperature is ${
@@ -80,5 +81,15 @@ async function handleInputs() {
     cityImage.src = Client.imgStart;
   }
 }
+// helper function to scroll to find destination section
+function scrollToFindDestination() {
+  const findDestinationSection = document.getElementById("find-destination");
+  let sectionBorders = findDestinationSection.getBoundingClientRect();
+  window.scrollTo({
+    left: sectionBorders.left + window.pageXOffset,
+    top: sectionBorders.top + window.pageYOffset - 50,
+    behavior: "smooth",
+  });
+}
 
-export { postUserUrlData, handleInputs };
+export { postUserUrlData, handleInputs, scrollToFindDestination };

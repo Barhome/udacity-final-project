@@ -12,7 +12,8 @@ const projectData = {};
 projectData.geonames = {};
 projectData.weatherApi = {};
 projectData.pixabayApi = {};
-let destination = "";
+let destinationCity = "";
+let destinationCountry = "";
 let tripDate = "";
 // setting up server requirements
 
@@ -97,10 +98,12 @@ function getTravelingDayData(tripDate, weatherApiData) {
 
 const postUserInputs = async function (req, res) {
   console.log(req.body);
-  destination = req.body.destination;
+  destinationCity = req.body.destinationCity;
+  destinationCountry = req.body.destinationCountry;
+
   tripDate = req.body.tripDate;
   const requestGeonames = await fetch(
-    `http://api.geonames.org/searchJSON?q=${destination}&maxRows=1&username=${key_geonames}`
+    `http://api.geonames.org/searchJSON?q=${destinationCity}&maxRows=1&username=${key_geonames}`
   );
   const geonamesData = await requestGeonames.json();
   const requestWeatherApi = await fetch(
@@ -109,8 +112,8 @@ const postUserInputs = async function (req, res) {
   const weatherApiData = await requestWeatherApi.json();
   const requestPixabayApi = await fetch(
     `https://pixabay.com/api/?key=${key_pixabay}&q=${removeSpaces(
-      destination
-    )}+tourism&image_type=photo`
+      destinationCity
+    )}+${removeSpaces(destinationCountry)}+tourism&image_type=photo`
   );
   const pixabayApiData = await requestPixabayApi.json();
 

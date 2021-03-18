@@ -1,7 +1,7 @@
 // import { testJs } from "./js/test.js";
 // import "./styles/test.scss";
 // testJs();
-import { handleInputs } from "./js/handleInputs";
+import { handleInputs, scrollToFindDestination } from "./js/handleInputs";
 import "./styles/header.scss";
 import "./styles/grid.scss";
 import "./styles/base.scss";
@@ -18,6 +18,9 @@ imgIntro.src = imgIntroJs;
 for (let i = 0; i < imgCard.length; i++) {
   imgCard[i].src = imgStart;
 }
-document.getElementById("save-trip").addEventListener("click", handleInputs);
+document.getElementById("show-trip").addEventListener("click", handleInputs);
+document
+  .getElementById("find-destination-btn")
+  .addEventListener("click", scrollToFindDestination);
 
 export { imgStart };
