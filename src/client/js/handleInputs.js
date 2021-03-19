@@ -4,6 +4,8 @@ let tripSaver = {};
 // a placeholder for the data stored in localstorage
 let localTripSaver;
 // get data from local storage
+const scheduledTrips = document.getElementById("scheduled-trips");
+
 console.log(localStorage.getItem("localTripSaver"));
 if (localStorage.getItem("localTripSaver") == null) {
   console.log(localStorage.getItem("localTripSaver"));
@@ -72,7 +74,7 @@ async function handleInputs() {
     .value;
   const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
-  const cityImage = document.getElementById("city-image");
+  // const cityImage = document.getElementById("city-image");
   // const saveTrip = document.getElementById("save-trip");
   // const deleteTrip = document.getElementById("delete-trip");
 
@@ -92,23 +94,30 @@ async function handleInputs() {
   });
 
   if (data.weatherApi.status === "online") {
-    displayInfo.innerHTML = `<p class="remaining-days">Your trip to ${destinationCity} in ${destinationCountry} is about ${
+    displayInfo.innerHTML = `<div class="destination-image">
+    <img src="${
+      data.pixabayApi.imageUrl
+    }" alt="trip image" id="city-image" class="city-image" />
+    </div>
+    <p class="remaining-days">
+    Your trip to ${destinationCity} in ${destinationCountry} is about ${
       data.weatherApi.remainingDays
-    } ${data.weatherApi.remainingDays > 1 ? "days" : "day"} away from today</p>
-        <p class="average-temp">Average expected temperature is ${
-          data.weatherApi.temp
-        } degree</p>
-        <p class="weather-description">Typical weather description is:"${
-          data.weatherApi.description
-        }"</p>
-        <div class="results-btns">
-          <button id="save-trip" class="btn" onclick="Client.addTrip()">Save <br />Trip Details</button>
-          <button id="delete-trip" class="btn">
-            Search <br />Another Trip
-          </button>
-        </div>`;
+    } ${data.weatherApi.remainingDays > 1 ? "days" : "day"} away from today
+    </p>
+    <p class="average-temp">
+    Average expected temperature is ${data.weatherApi.temp} degree
+    </p>
+    <p class="weather-description">
+    Typical weather description is:"${data.weatherApi.description}"
+    </p>
+    <div class="results-btns">
+    <button id="save-trip" class="btn" onclick="Client.addTrip()">
+      Save <br />Trip Details
+    </button>
+    <button id="delete-trip" class="btn">Search <br />Another Trip</button>
+    </div>`;
     // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
-    cityImage.src = data.pixabayApi.imageUrl;
+    //cityImage.src = data.pixabayApi.imageUrl;
     // assigning  final trip data to tripSaver Object
     tripSaver.destinationCountry = destinationCountry;
     tripSaver.destinationCity = destinationCity;
@@ -122,7 +131,7 @@ async function handleInputs() {
   else {
     displayInfo.innerHTML = "";
     displayInfo.innerHTML = `<p>${data.weatherApi.weatherStatus}</p>`;
-    cityImage.src = Client.imgStart;
+    //cityImage.src = Client.imgStart;
   }
 }
 // helper function to add a trip to local storage
@@ -145,11 +154,30 @@ function addTrip() {
 // helper function to show all the trips stored in local storage
 
 function showTrips() {
+  // bug code is not working the way it is supposed to work
+
+  // const gridHeader = document.createElement("H1");
+  // const text = document.createTextNode("Your Scheduled Trips");
+  //const scheduledTrips = document.getElementById("scheduled-trips");
+  // gridHeader.appendChild(text);
+  // tripsGridNode.before(gridHeader);
+
   let tripsGrid = "";
+  const tripsGridNode = document.getElementById("trips-grid");
+
+  if (!localTripSaver.length) {
+    scheduledTrips.classList.add("hide");
+    tripsGridNode.innerHTML = tripsGrid;
+    setTimeout(() => {
+      alert("You don't have any saved Trips");
+    }, 1000);
+    return;
+  }
+  scheduledTrips.classList.remove("hide");
   // looping to create a grid
   for (let i = 0; i < localTripSaver.length; i++) {
     tripsGrid += `<div class="card">
-    <div class="">
+    <div class="img-div">
       <img class="img-card" src="" alt="" id="img-card-${i}"/>
     </div>
     <h4>Your destination is about ${localTripSaver[i].remainingDays} ${
@@ -160,7 +188,7 @@ function showTrips() {
     <button id="delete" class="btn" onclick=Client.deleteTrip(${i})>Delete</button>
   </div>`;
   }
-  document.getElementById("trips-grid").innerHTML = tripsGrid;
+  tripsGridNode.innerHTML = tripsGrid;
 
   // looping to inject images in each card
   for (let i = 0; i < localTripSaver.length; i++) {
@@ -177,6 +205,7 @@ function deleteTrip(id) {
   showTrips();
 }
 
+function addElement() {}
 export {
   postUserUrlData,
   handleInputs,

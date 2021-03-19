@@ -1,33 +1,50 @@
-.main-section-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "pic in"
-    "out out";
-  border: solid 2px red;
+.main-section {
+  display: flex;
+  background-image: url("../media/images/bg.jpg");
+  background-size: 100% 100%;
 }
 
 .destination-image {
   grid-area: pic;
-  border: solid 2px blue;
+  width: 100%;
+  height: 230px;
+  margin-bottom: 20px;
+}
+.destination-image p {
+  margin-bottom: 10px;
+}
+.img-card {
+  width: 100%;
+}
+
+.city-image {
+  width: 100%;
+  height: 100%;
 }
 
 .destination-info {
-  grid-area: in;
+  display: flex;
+  flex-direction: column;
   border: solid 2px green;
+  padding: 50px;
 }
 .destination-info-display {
-  grid-area: out;
-  border: solid 2px yellow;
+  // border: solid 2px yellow;
+  display: flex;
+  flex-direction: column;
+  width: 330px;
   margin: auto;
+  padding: 20px;
+  border-radius: 5px;
   text-align: center;
+  color: white;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  margin-left: 20px;
 }
 
 label {
@@ -36,6 +53,7 @@ label {
 }
 .input-data {
   width: 400px;
+  min-width: 0;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;
@@ -50,7 +68,6 @@ label {
 
 .destination-btns {
   margin-top: 30px;
-  margin-left: 20px;
 }
 
 .results-btns {
