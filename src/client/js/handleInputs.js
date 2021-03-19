@@ -157,7 +157,7 @@ function showTrips() {
     } from now</h4>
     <h4>Expected Degree is ${localTripSaver[i].destinationTemp} degree</h4>
     <h4>Weather description:${localTripSaver[i].weatherDescription}</h4>
-    <button id="delete" class="btn">Delete</button>
+    <button id="delete" class="btn" onclick=Client.deleteTrip(${i})>Delete</button>
   </div>`;
   }
   document.getElementById("trips-grid").innerHTML = tripsGrid;
@@ -169,10 +169,19 @@ function showTrips() {
   }
 }
 
+// helper function to delete a trip from grid
+
+function deleteTrip(id) {
+  localTripSaver.splice(id, 1);
+  localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
+  showTrips();
+}
+
 export {
   postUserUrlData,
   handleInputs,
   scrollToFindDestination,
   addTrip,
   showTrips,
+  deleteTrip,
 };
