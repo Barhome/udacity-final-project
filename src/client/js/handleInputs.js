@@ -56,12 +56,15 @@ function checkDate(date) {
 }
 
 // helper function to scroll to find destination section
-function scrollToFindDestination(destination) {
-  const findDestinationSection = document.getElementById(destination);
+function scrollToFindDestination(target) {
+  const findDestinationSection = document.getElementById(target);
+  const headerBorders = document
+    .getElementById("app-header")
+    .getBoundingClientRect();
   let sectionBorders = findDestinationSection.getBoundingClientRect();
   window.scrollTo({
     left: sectionBorders.left + window.pageXOffset,
-    top: sectionBorders.top + window.pageYOffset,
+    top: sectionBorders.top + window.pageYOffset - headerBorders.height,
     behavior: "smooth",
   });
 }
