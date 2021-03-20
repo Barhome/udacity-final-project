@@ -9,9 +9,10 @@ import {
   deleteTrip,
 } from "./js/handleInputs";
 import "./styles/header.scss";
-import "./styles/grid.scss";
+import "./styles/fetchData.scss";
 import "./styles/base.scss";
 import "./styles/savedData.scss";
+import "./styles/mediaQuery.scss";
 //import imgStart from "./media/images/1.jpg";
 import imgIntroJs from "./media/images/1.png";
 
@@ -27,7 +28,9 @@ imgIntro.src = imgIntroJs;
 document.getElementById("show-trip").addEventListener("click", handleInputs);
 document
   .getElementById("find-destination-btn")
-  .addEventListener("click", scrollToFindDestination);
+  .addEventListener("click", function () {
+    scrollToFindDestination("find-destination");
+  });
 
 const allTrips = document.getElementsByClassName("all-trips");
 for (let i = 0; i < allTrips.length; i++) {

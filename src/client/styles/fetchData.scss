@@ -2,39 +2,24 @@
   display: flex;
   background-image: url("../media/images/bg.jpg");
   background-size: 100% 100%;
-}
-
-.destination-image {
-  grid-area: pic;
-  width: 100%;
-  height: 230px;
-  margin-bottom: 20px;
-}
-.destination-image p {
-  margin-bottom: 10px;
-}
-.img-card {
-  width: 100%;
-}
-
-.city-image {
-  width: 100%;
-  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .destination-info {
   display: flex;
   flex-direction: column;
-  border: solid 2px green;
-  padding: 50px;
+  padding: 10px;
+  width: 400px;
 }
 .destination-info-display {
   // border: solid 2px yellow;
   display: flex;
   flex-direction: column;
-  width: 330px;
-  margin: auto;
-  padding: 20px;
+  // flex-wrap: nowrap;
+  width: 300px;
+  padding: 10px;
   border-radius: 5px;
   text-align: center;
   color: white;
@@ -44,7 +29,8 @@
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 5px;
+  width: 100%;
 }
 
 label {
@@ -52,10 +38,9 @@ label {
   font: italic 600 16px "segoe ui";
 }
 .input-data {
-  width: 400px;
-  min-width: 0;
+  width: 90%;
   padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
   border: solid 1px grey;
   background-color: white;
@@ -67,9 +52,25 @@ label {
 }
 
 .destination-btns {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .results-btns {
-  margin-top: 30px;
+  margin-top: 10px;
+}
+.destination-image {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 5px;
+}
+.destination-image p {
+  margin-bottom: 5px;
+}
+.img-card {
+  width: 100%;
+}
+
+.city-image {
+  width: 100%;
+  height: 100%;
 }

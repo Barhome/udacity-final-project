@@ -1,0 +1,62 @@
+@media (max-width: 1250px) {
+  .trips-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 1075px) {
+  .intro-container {
+    flex-direction: column;
+  }
+  .img-intro-container {
+    width: 50%;
+  }
+  .btns-container {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 990px) {
+  .intro-container {
+    flex-direction: column;
+  }
+
+  .trips-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 770px) {
+  .destination-info {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .trips-grid {
+    grid-template-columns: 1fr;
+  }
+  .img-intro-container {
+    width: 70%;
+  }
+  .btns-container {
+    flex-direction: column;
+  }
+  .btn-intro {
+    width: 300px;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 376px) {
+  .addMargin {
+    margin-top: 5px;
+  }
+  .addWidth {
+    width: 100%;
+  }
+  .removeMargin {
+    margin-left: 0;
+  }
+  .app-title {
+    font-size: 24px;
+  }
+}

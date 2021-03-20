@@ -4,28 +4,33 @@ body {
   margin: 0;
   background: lightblue;
 }
-section {
+.full-height {
   height: 100vh;
 }
-section:nth-child(1) {
-  overflow: auto;
+.full-height:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-section:nth-child(2) {
-  overflow: auto;
+.full-height:nth-child(2) {
+  display: flex;
 }
-section:nth-child(3) {
-  height: auto;
-}
-section:nth-child(4) {
-  height: auto;
+
+.intro-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .intro-container {
-  margin-top: 100px;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
 }
 .img-intro-container {
   width: 50%;
   padding-left: 50px;
+  margin: 20px;
 }
 .btns-container {
   width: 50%;
@@ -38,19 +43,31 @@ section:nth-child(4) {
 }
 
 .btn {
-  padding: 10px 30px;
+  padding: 10px 20px;
   font: italic 600 16px "segoe ui";
   border: none;
   border-radius: 5px;
-  margin-left: 5px;
   background-color: white;
+}
+
+.btn-delete {
+  padding: 10px 20px;
+  font: italic 600 16px "segoe ui";
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .btn:hover {
   background-color: #1b6e34;
   color: white;
 }
-
+.btn-delete:hover {
+  background-color: darkred;
+  color: white;
+}
 .hide {
   display: none;
 }

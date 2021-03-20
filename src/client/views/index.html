@@ -7,29 +7,25 @@
   <body>
     <!-- <h1>Test html</h1> -->
     <!-- introduction section -->
-    <section>
-      <header class="app-header">
-        <h1 class="app-title">My Travel Planner</h1>
-      </header>
+    <header class="app-header">
+      <h1 class="app-title">My Travel Planner</h1>
+    </header>
+    <section class="full-height intro-section">
       <div class="intro-container">
         <div class="img-intro-container">
           <img src="" alt="" id="img-intro" class="img-intro" />
         </div>
         <div class="btns-container">
-          <button class="btn" id="find-destination-btn">
-            Get Information About<br />
-            Your Next Destination
+          <button class="btn btn-intro" id="find-destination-btn">
+            Check Next Destination
           </button>
-          <button class="btn all-trips">
-            Display<br />
-            Your Saved Trips
-          </button>
+          <button class="btn all-trips btn-intro">Display All Trips</button>
         </div>
       </div>
     </section>
 
     <!-- find destination section -->
-    <section class="main-section" id="find-destination">
+    <section class="main-section full-height" id="find-destination">
       <div class="destination-info">
         <div class="destination-input input-group">
           <label>Where do you want to go?</label>
@@ -56,12 +52,14 @@
           />
         </div>
         <div class="destination-btns">
-          <button id="show-trip" class="btn">
-            Show <br />Your Trip Details
+          <button id="show-trip" class="btn addWidth removeMargin">
+            Show Next Trip
           </button>
-          <button id="all-trips" class="btn all-trips">
-            Display<br />
-            Your Saved Trips
+          <button
+            id="all-trips"
+            class="btn all-trips addMargin addWidth removeMargin"
+          >
+            Display All Trips
           </button>
         </div>
       </div>
@@ -72,7 +70,7 @@
     </section>
     <!-- Saved trips in from local storage -->
     <h2 class="hide scheduled-trips" id="scheduled-trips">
-      Your scheduled Trips
+      Your Scheduled Trips
     </h2>
     <section class="trips-grid" id="trips-grid">
       <!-- <div class="card">

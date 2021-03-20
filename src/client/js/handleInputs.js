@@ -56,12 +56,12 @@ function checkDate(date) {
 }
 
 // helper function to scroll to find destination section
-function scrollToFindDestination() {
-  const findDestinationSection = document.getElementById("find-destination");
+function scrollToFindDestination(destination) {
+  const findDestinationSection = document.getElementById(destination);
   let sectionBorders = findDestinationSection.getBoundingClientRect();
   window.scrollTo({
     left: sectionBorders.left + window.pageXOffset,
-    top: sectionBorders.top + window.pageYOffset - 50,
+    top: sectionBorders.top + window.pageYOffset,
     behavior: "smooth",
   });
 }
@@ -112,9 +112,9 @@ async function handleInputs() {
     </p>
     <div class="results-btns">
     <button id="save-trip" class="btn" onclick="Client.addTrip()">
-      Save <br />Trip Details
+      Save
     </button>
-    <button id="delete-trip" class="btn">Search <br />Another Trip</button>
+    <button id="delete-trip" class="btn">Find Another Trip</button>
     </div>`;
     // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
     //cityImage.src = data.pixabayApi.imageUrl;
@@ -185,7 +185,7 @@ function showTrips() {
     } from now</h4>
     <h4>Expected Degree is ${localTripSaver[i].destinationTemp} degree</h4>
     <h4>Weather description:${localTripSaver[i].weatherDescription}</h4>
-    <button id="delete" class="btn" onclick=Client.deleteTrip(${i})>Delete</button>
+    <button id="delete" class="btn-delete" onclick=Client.deleteTrip(${i})>Delete</button>
   </div>`;
   }
   tripsGridNode.innerHTML = tripsGrid;
@@ -195,6 +195,7 @@ function showTrips() {
     const localCityimage = document.getElementById(`img-card-${i}`);
     localCityimage.src = localTripSaver[i].destinationImage;
   }
+  scrollToFindDestination("scheduled-trips");
 }
 
 // helper function to delete a trip from grid
@@ -205,7 +206,6 @@ function deleteTrip(id) {
   showTrips();
 }
 
-function addElement() {}
 export {
   postUserUrlData,
   handleInputs,
