@@ -49,9 +49,11 @@ app.get("/", function (req, res) {
 });
 
 // designates what port the app will listen to for incoming requests
-app.listen(3000, function () {
-  console.log("Example app listening on port 3000!");
-});
+// app.listen(3000, function () {
+//   console.log("Example app listening on port 3000!");
+// });
+
+module.exports = app;
 
 //helper function to remove spaces from a string
 
@@ -62,9 +64,7 @@ function removeSpaces(stringData) {
 
 function getRemainingDays(date) {
   const today = new Date();
-  console.log(today);
   const tripDay = new Date(date);
-  console.log(tripDay);
   const remainingDays = Math.round((tripDay - today) / (1000 * 60 * 60 * 24));
   return remainingDays;
 }
@@ -135,3 +135,9 @@ const postUserInputs = async function (req, res) {
 };
 
 app.post("/postUserInputs", postUserInputs);
+
+app.get("/test", async (req, res) => {
+  res.json({ message: "pass!" });
+});
+
+//export { getRemainingDays };

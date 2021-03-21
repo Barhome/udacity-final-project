@@ -7,7 +7,7 @@ import {
   scrollToFindDestination,
   showTrips,
   deleteTrip,
-} from "./js/handleInputs";
+} from "./js/app";
 import "./styles/header.scss";
 import "./styles/fetchData.scss";
 import "./styles/base.scss";

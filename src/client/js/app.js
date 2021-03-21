@@ -216,4 +216,5 @@ export {
   addTrip,
   showTrips,
   deleteTrip,
+  dateFormat,
 };
