@@ -54,9 +54,10 @@ app.get("/", function (req, res) {
 // });
 
 //helper function to remove spaces from a string
+// add + for better search results with pixabay
 
 function removeSpaces(stringData) {
-  return stringData.split(" ").join("");
+  return stringData.split(" ").join("+");
 }
 //helper function to check the remaining days to your trip day
 
@@ -100,22 +101,22 @@ const postUserInputs = async function (req, res) {
   destinationCountry = req.body.destinationCountry;
 
   tripDate = req.body.tripDate;
-  const requestGeonames = await fetch(
-    `http://api.geonames.org/searchJSON?q=${destinationCity}&maxRows=1&username=${key_geonames}`
-  );
-  const geonamesData = await requestGeonames.json();
-  const requestWeatherApi = await fetch(
-    `http://api.weatherbit.io/v2.0/forecast/daily?lat=${geonamesData.geonames[0].lat}&lon=${geonamesData.geonames[0].lng}&key=${key_weather}`
-  );
-  const weatherApiData = await requestWeatherApi.json();
-  const requestPixabayApi = await fetch(
-    `https://pixabay.com/api/?key=${key_pixabay}&q=${removeSpaces(
-      destinationCity
-    )}+${removeSpaces(destinationCountry)}+tourism&image_type=photo`
-  );
-  const pixabayApiData = await requestPixabayApi.json();
-
   try {
+    const requestGeonames = await fetch(
+      `http://api.geonames.org/searchJSON?q=${destinationCity}&maxRows=1&username=${key_geonames}`
+    );
+    const geonamesData = await requestGeonames.json();
+    const requestWeatherApi = await fetch(
+      `http://api.weatherbit.io/v2.0/forecast/daily?lat=${geonamesData.geonames[0].lat}&lon=${geonamesData.geonames[0].lng}&key=${key_weather}`
+    );
+    const weatherApiData = await requestWeatherApi.json();
+    const requestPixabayApi = await fetch(
+      `https://pixabay.com/api/?key=${key_pixabay}&q=${removeSpaces(
+        destinationCity
+      )}+${removeSpaces(destinationCountry)}+tourism&image_type=photo`
+    );
+    const pixabayApiData = await requestPixabayApi.json();
+
     //console.log(weatherApiData.data[0].temp);
     //console.log(weatherApiData);
     projectData.geonames.lng = geonamesData.geonames[0].lng;
@@ -128,7 +129,9 @@ const postUserInputs = async function (req, res) {
     console.log(projectData);
     res.send(projectData);
   } catch (error) {
-    console.log(`error:${error}`);
+    // projectData.error = error.message;
+    res.send(error);
+    console.log(`error message:${error}`);
   }
 };
 

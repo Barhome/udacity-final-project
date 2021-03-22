@@ -7,6 +7,7 @@ import {
   scrollToFindDestination,
   showTrips,
   deleteTrip,
+  findAnotherTrip,
 } from "./js/app";
 import "./styles/header.scss";
 import "./styles/fetchData.scss";
@@ -36,4 +37,4 @@ const allTrips = document.getElementsByClassName("all-trips");
 for (let i = 0; i < allTrips.length; i++) {
   allTrips[i].addEventListener("click", showTrips);
 }
-export { addTrip, deleteTrip };
+export { addTrip, deleteTrip, findAnotherTrip };

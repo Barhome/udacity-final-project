@@ -72,10 +72,9 @@ function scrollToFindDestination(target) {
 async function handleInputs() {
   //Selecting Dom Elements
 
-  const destinationCity = document.getElementById("destination-city").value;
-  const destinationCountry = document.getElementById("destination-country")
-    .value;
-  const tripDate = document.getElementById("trip-date").value;
+  let destinationCity = document.getElementById("destination-city").value;
+  let destinationCountry = document.getElementById("destination-country").value;
+  let tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
   // const cityImage = document.getElementById("city-image");
   // const saveTrip = document.getElementById("save-trip");
@@ -90,22 +89,25 @@ async function handleInputs() {
   }
 
   // Sending destination and tripDate to server and obtaining data required to be viewed on ui
-  const data = await postUserUrlData("http://localhost:3000/postUserInputs", {
-    destinationCity,
-    destinationCountry,
-    tripDate: dateFormat(tripDate),
-  });
+  try {
+    const data = await postUserUrlData("http://localhost:3000/postUserInputs", {
+      destinationCity,
+      destinationCountry,
+      tripDate: dateFormat(tripDate),
+    });
+    console.log(data);
 
-  if (data.weatherApi.status === "online") {
-    displayInfo.innerHTML = `<div class="destination-image">
+    console.log(data);
+    if (data.weatherApi.status === "online") {
+      displayInfo.innerHTML = `<div class="destination-image">
     <img src="${
       data.pixabayApi.imageUrl
     }" alt="trip image" id="city-image" class="city-image" />
     </div>
     <p class="remaining-days">
     Your trip to ${destinationCity} in ${destinationCountry} is about ${
-      data.weatherApi.remainingDays
-    } ${data.weatherApi.remainingDays > 1 ? "days" : "day"} away from today
+        data.weatherApi.remainingDays
+      } ${data.weatherApi.remainingDays > 1 ? "days" : "day"} away from today
     </p>
     <p class="average-temp">
     Average expected temperature is ${data.weatherApi.temp} degree
@@ -117,24 +119,34 @@ async function handleInputs() {
     <button id="save-trip" class="btn" onclick="Client.addTrip()">
       Save
     </button>
-    <button id="delete-trip" class="btn">Find Another Trip</button>
+
+    <button id="find-another-trip" class="btn" onclick=Client.findAnotherTrip()>Find Another Trip</button>
     </div>`;
-    // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
-    //cityImage.src = data.pixabayApi.imageUrl;
-    // assigning  final trip data to tripSaver Object
-    tripSaver.destinationCountry = destinationCountry;
-    tripSaver.destinationCity = destinationCity;
-    tripSaver.remainingDays = data.weatherApi.remainingDays;
-    tripSaver.destinationTemp = data.weatherApi.temp;
-    tripSaver.weatherDescription = data.weatherApi.description;
-    tripSaver.destinationImage = data.pixabayApi.imageUrl;
-    console.log(tripSaver);
-  }
-  // offline status
-  else {
-    displayInfo.innerHTML = "";
-    displayInfo.innerHTML = `<p>${data.weatherApi.weatherStatus}</p>`;
-    //cityImage.src = Client.imgStart;
+      // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
+      //cityImage.src = data.pixabayApi.imageUrl;
+      // assigning  final trip data to tripSaver Object
+      tripSaver.destinationCountry = destinationCountry;
+      tripSaver.destinationCity = destinationCity;
+      tripSaver.remainingDays = data.weatherApi.remainingDays;
+      tripSaver.destinationTemp = data.weatherApi.temp;
+      tripSaver.weatherDescription = data.weatherApi.description;
+      tripSaver.destinationImage = data.pixabayApi.imageUrl;
+      console.log(tripSaver);
+      // resetting inputs
+      document.getElementById("destination-city").value = "";
+      document.getElementById("destination-country").value = "";
+      document.getElementById("trip-date").value = "";
+      document.getElementById("show-trip").disabled = true;
+    }
+    // offline status
+    else {
+      displayInfo.innerHTML = "";
+      displayInfo.innerHTML = `<p>${data.weatherApi.weatherStatus}</p>`;
+    }
+  } catch (error) {
+    alert(
+      "Failed to Fetch Data: due to invalid data insertion or connection error try again later.."
+    );
   }
 }
 // helper function to add a trip to local storage
@@ -151,6 +163,7 @@ function addTrip() {
   localTripSaver.push(trip);
   localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
   console.log(localTripSaver);
+  document.getElementById("save-trip").disabled = true;
   alert("Your trip has been saved to your local system:Local Storage");
 }
 
@@ -183,9 +196,11 @@ function showTrips() {
     <div class="img-div">
       <img class="img-card" src="" alt="" id="img-card-${i}"/>
     </div>
-    <h4>Your destination is about ${localTripSaver[i].remainingDays} ${
+    <h4>${localTripSaver[i].destinationCountry}-${
+      localTripSaver[i].destinationCity
+    } is about ${localTripSaver[i].remainingDays} ${
       localTripSaver[i].remainingDays > 1 ? "days" : "day"
-    } from now</h4>
+    } away</h4>
     <h4>Expected Degree is ${localTripSaver[i].destinationTemp} degree</h4>
     <h4>Weather description:${localTripSaver[i].weatherDescription}</h4>
     <button id="delete" class="btn-delete" onclick=Client.deleteTrip(${i})>Delete</button>
@@ -208,6 +223,14 @@ function deleteTrip(id) {
   localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
   showTrips();
 }
+
+//helper function to find another trip
+function findAnotherTrip() {
+  const displayInfo = document.getElementById("display-info");
+  displayInfo.innerHTML = "";
+  displayInfo.innerHTML = "<h1>Your Journey Starts Here..</h1>";
+  document.getElementById("show-trip").removeAttribute("disabled");
+}
 export {
   postUserUrlData,
   handleInputs,
@@ -216,4 +239,5 @@ export {
   showTrips,
   deleteTrip,
   dateFormat,
+  findAnotherTrip,
 };
