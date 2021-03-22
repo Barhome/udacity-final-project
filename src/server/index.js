@@ -53,8 +53,6 @@ app.get("/", function (req, res) {
 //   console.log("Example app listening on port 3000!");
 // });
 
-module.exports = app;
-
 //helper function to remove spaces from a string
 
 function removeSpaces(stringData) {
@@ -136,8 +134,8 @@ const postUserInputs = async function (req, res) {
 
 app.post("/postUserInputs", postUserInputs);
 
-app.get("/test", async (req, res) => {
-  res.json({ message: "pass!" });
-});
-
-//export { getRemainingDays };
+// export app for testing
+module.exports = app;
+// app.get("/test", async (req, res) => {
+//   res.json({ message: "pass!" });
+// });

@@ -208,7 +208,6 @@ function deleteTrip(id) {
   localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
   showTrips();
 }
-
 export {
   postUserUrlData,
   handleInputs,
