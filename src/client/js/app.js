@@ -6,7 +6,8 @@ let localTripSaver;
 // get data from local storage
 const scheduledTrips = document.getElementById("scheduled-trips");
 
-console.log(localStorage.getItem("localTripSaver"));
+let statusDisplay = true;
+
 if (localStorage.getItem("localTripSaver") == null) {
   localTripSaver = [];
 } else {
@@ -67,9 +68,10 @@ function scrollToFindDestination(target) {
 async function handleInputs() {
   //Selecting Dom Elements
 
-  let destinationCity = document.getElementById("destination-city").value;
-  let destinationCountry = document.getElementById("destination-country").value;
-  let tripDate = document.getElementById("trip-date").value;
+  const destinationCity = document.getElementById("destination-city").value;
+  const destinationCountry = document.getElementById("destination-country")
+    .value;
+  const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
 
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
@@ -168,7 +170,7 @@ function addTrip() {
 function showTrips() {
   let tripsGrid = "";
   const tripsGridNode = document.getElementById("trips-grid");
-
+  // check if the local storage is empty
   if (!localTripSaver.length) {
     scheduledTrips.classList.add("hide");
     tripsGridNode.innerHTML = tripsGrid;
@@ -224,6 +226,16 @@ function findAnotherTrip() {
   document.getElementById("show-trip").removeAttribute("disabled");
 }
 
+//helper function to create an element
+function createElementAlert(message) {
+  const showInbody = document.getElementsByTagName("body");
+  const alertMessage = document.createElement("div");
+  alertMessage.classList.add("alert-message");
+  alertMessage.innerHTML = `${message}<button class="btn btn-alert-message">Got it!</button>}`;
+  showInbody.prepend(alertMessage);
+}
+
+createElementAlert("test element");
 export {
   postUserUrlData,
   handleInputs,
@@ -231,6 +243,5 @@ export {
   addTrip,
   showTrips,
   deleteTrip,
-  dateFormat,
   findAnotherTrip,
 };

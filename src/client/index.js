@@ -13,6 +13,7 @@ import "./styles/savedData.scss";
 import "./styles/mediaQuery.scss";
 import imgIntroJs from "./media/images/1.png";
 
+createElement("test");
 // landing section image
 const imgIntro = document.getElementById("img-intro");
 imgIntro.src = imgIntroJs;

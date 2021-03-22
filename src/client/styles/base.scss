@@ -74,3 +74,20 @@ body {
 .show {
   display: block;
 }
+
+.alert-message {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  background-color: white;
+  color: #bbb;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.btn-alert-message {
+  width: 50px;
+  cursor: pointer;
+  padding: 5px;
+}

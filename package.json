@@ -42,6 +42,7 @@
     "terser-webpack-plugin": "^1.4.5",
     "url-loader": "^4.1.1",
     "webpack-dev-server": "^3.7.2",
+    "webpack-loader-append-prepend": "^1.0.2",
     "workbox-webpack-plugin": "^6.1.1"
   }
 }
