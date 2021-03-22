@@ -54,11 +54,13 @@ app.get("/", function (req, res) {
 // });
 
 //helper function to remove spaces from a string
+
 // add + for better search results with pixabay
 
 function removeSpaces(stringData) {
   return stringData.split(" ").join("+");
 }
+
 //helper function to check the remaining days to your trip day
 
 function getRemainingDays(date) {
@@ -117,19 +119,16 @@ const postUserInputs = async function (req, res) {
     );
     const pixabayApiData = await requestPixabayApi.json();
 
-    //console.log(weatherApiData.data[0].temp);
-    //console.log(weatherApiData);
     projectData.geonames.lng = geonamesData.geonames[0].lng;
     projectData.geonames.lat = geonamesData.geonames[0].lat;
     //get weather data for the exact traveling day
     getTravelingDayData(tripDate, weatherApiData);
-    //projectData.weatherApi.temp = weatherApiData.data[0].temp;
+
     projectData.pixabayApi.imageUrl = pixabayApiData.hits[0].largeImageURL;
 
     console.log(projectData);
     res.send(projectData);
   } catch (error) {
-    // projectData.error = error.message;
     res.send(error);
     console.log(`error message:${error}`);
   }
@@ -137,8 +136,4 @@ const postUserInputs = async function (req, res) {
 
 app.post("/postUserInputs", postUserInputs);
 
-// export app for testing
 module.exports = app;
-// app.get("/test", async (req, res) => {
-//   res.json({ message: "pass!" });
-// });

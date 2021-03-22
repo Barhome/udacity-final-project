@@ -8,17 +8,13 @@ const scheduledTrips = document.getElementById("scheduled-trips");
 
 console.log(localStorage.getItem("localTripSaver"));
 if (localStorage.getItem("localTripSaver") == null) {
-  console.log(localStorage.getItem("localTripSaver"));
   localTripSaver = [];
-  console.log("check null");
-  console.log(localTripSaver);
 } else {
   localTripSaver = JSON.parse(localStorage.getItem("localTripSaver"));
-  console.log("check full");
-  console.log(localTripSaver);
 }
 
 // create function to Post Data
+
 const postUserUrlData = async function (url = "", data = {}) {
   const response = await fetch(url, {
     method: "POST",
@@ -28,18 +24,14 @@ const postUserUrlData = async function (url = "", data = {}) {
   });
   try {
     const returnedData = await response.json();
-    console.log(returnedData);
     return returnedData;
   } catch (error) {
     console.log(`error:${error}`);
   }
 };
 
-// postUserUrlData("http://localhost:3000/postUserInputs", {
-//   userDestination: "paris",
-// });
-
 // helper function to convert a date string format from dd/mm/yyyy to yyyy-mm-dd
+
 function dateFormat(date) {
   const day = date.slice(0, date.indexOf("/"));
   const month = date.slice(date.indexOf("/") + 1, date.lastIndexOf("/"));
@@ -48,6 +40,7 @@ function dateFormat(date) {
   return newFormat;
 }
 // helper function to force the user to insert his date in dd/mm/yyyy format
+
 function checkDate(date) {
   const expression = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
   const regex = new RegExp(expression);
@@ -56,6 +49,7 @@ function checkDate(date) {
 }
 
 // helper function to scroll to find destination section
+
 function scrollToFindDestination(target) {
   const findDestinationSection = document.getElementById(target);
   const headerBorders = document
@@ -68,7 +62,8 @@ function scrollToFindDestination(target) {
     behavior: "smooth",
   });
 }
-//
+// helper function to be add to eventlistner
+
 async function handleInputs() {
   //Selecting Dom Elements
 
@@ -76,11 +71,9 @@ async function handleInputs() {
   let destinationCountry = document.getElementById("destination-country").value;
   let tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
-  // const cityImage = document.getElementById("city-image");
-  // const saveTrip = document.getElementById("save-trip");
-  // const deleteTrip = document.getElementById("delete-trip");
 
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
+
   if (!checkDate(tripDate)) {
     alert(
       "Please Enter a valid Date following this format dd/mm/yyyy ex:24/01/2020"
@@ -89,15 +82,16 @@ async function handleInputs() {
   }
 
   // Sending destination and tripDate to server and obtaining data required to be viewed on ui
+
   try {
     const data = await postUserUrlData("http://localhost:3000/postUserInputs", {
       destinationCity,
       destinationCountry,
       tripDate: dateFormat(tripDate),
     });
-    console.log(data);
 
-    console.log(data);
+    // viewing on ui
+
     if (data.weatherApi.status === "online") {
       displayInfo.innerHTML = `<div class="destination-image">
     <img src="${
@@ -122,22 +116,24 @@ async function handleInputs() {
 
     <button id="find-another-trip" class="btn" onclick=Client.findAnotherTrip()>Find Another Trip</button>
     </div>`;
-      // cityImage.setAttribute("src", data.pixabayApi.imageUrl);
-      //cityImage.src = data.pixabayApi.imageUrl;
+
       // assigning  final trip data to tripSaver Object
+
       tripSaver.destinationCountry = destinationCountry;
       tripSaver.destinationCity = destinationCity;
       tripSaver.remainingDays = data.weatherApi.remainingDays;
       tripSaver.destinationTemp = data.weatherApi.temp;
       tripSaver.weatherDescription = data.weatherApi.description;
       tripSaver.destinationImage = data.pixabayApi.imageUrl;
-      console.log(tripSaver);
+
       // resetting inputs
+
       document.getElementById("destination-city").value = "";
       document.getElementById("destination-country").value = "";
       document.getElementById("trip-date").value = "";
       document.getElementById("show-trip").disabled = true;
     }
+
     // offline status
     else {
       displayInfo.innerHTML = "";
@@ -149,6 +145,7 @@ async function handleInputs() {
     );
   }
 }
+
 // helper function to add a trip to local storage
 
 function addTrip() {
@@ -162,7 +159,6 @@ function addTrip() {
   };
   localTripSaver.push(trip);
   localStorage.setItem("localTripSaver", JSON.stringify(localTripSaver));
-  console.log(localTripSaver);
   document.getElementById("save-trip").disabled = true;
   alert("Your trip has been saved to your local system:Local Storage");
 }
@@ -170,14 +166,6 @@ function addTrip() {
 // helper function to show all the trips stored in local storage
 
 function showTrips() {
-  // bug code is not working the way it is supposed to work
-
-  // const gridHeader = document.createElement("H1");
-  // const text = document.createTextNode("Your Scheduled Trips");
-  //const scheduledTrips = document.getElementById("scheduled-trips");
-  // gridHeader.appendChild(text);
-  // tripsGridNode.before(gridHeader);
-
   let tripsGrid = "";
   const tripsGridNode = document.getElementById("trips-grid");
 
@@ -190,7 +178,9 @@ function showTrips() {
     return;
   }
   scheduledTrips.classList.remove("hide");
+
   // looping to create a grid
+
   for (let i = 0; i < localTripSaver.length; i++) {
     tripsGrid += `<div class="card">
     <div class="img-div">
@@ -209,6 +199,7 @@ function showTrips() {
   tripsGridNode.innerHTML = tripsGrid;
 
   // looping to inject images in each card
+
   for (let i = 0; i < localTripSaver.length; i++) {
     const localCityimage = document.getElementById(`img-card-${i}`);
     localCityimage.src = localTripSaver[i].destinationImage;
@@ -225,12 +216,14 @@ function deleteTrip(id) {
 }
 
 //helper function to find another trip
+
 function findAnotherTrip() {
   const displayInfo = document.getElementById("display-info");
   displayInfo.innerHTML = "";
   displayInfo.innerHTML = "<h1>Your Journey Starts Here..</h1>";
   document.getElementById("show-trip").removeAttribute("disabled");
 }
+
 export {
   postUserUrlData,
   handleInputs,
