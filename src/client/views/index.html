@@ -75,5 +75,15 @@
       <button class="btn btn-hide" id="hide-all-trips">Hide all Trips</button>
     </div>
     <section class="trips-grid" id="trips-grid"></section>
+    <script>
+      // Check that service workers are supported
+      // don't forget to require it in webpack.prod and to list it in plugin list
+      if ("serviceWorker" in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js");
+        });
+      }
+    </script>
   </body>
 </html>
