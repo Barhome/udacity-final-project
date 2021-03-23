@@ -45,8 +45,10 @@
     width: 300px;
     margin-top: 20px;
   }
+  .scheduled-trips {
+    flex-direction: column-reverse;
+  }
 }
-
 @media (max-width: 376px) {
   .addMargin {
     margin-top: 5px;
