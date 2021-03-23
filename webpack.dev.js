@@ -32,18 +32,6 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.js$/, // Use any filename you need
-        use: [
-          {
-            loader: "webpack-loader-append-prepend",
-            options: {
-              prepend: "This goes at the beginning of the file",
-              append: "This goes at the end of the file",
-            },
-          },
-        ],
-      },
     ],
   },
   plugins: [

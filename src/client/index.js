@@ -5,6 +5,7 @@ import {
   showTrips,
   deleteTrip,
   findAnotherTrip,
+  hideAllTrips,
 } from "./js/app";
 import "./styles/header.scss";
 import "./styles/fetchData.scss";
@@ -13,7 +14,6 @@ import "./styles/savedData.scss";
 import "./styles/mediaQuery.scss";
 import imgIntroJs from "./media/images/1.png";
 
-createElement("test");
 // landing section image
 const imgIntro = document.getElementById("img-intro");
 imgIntro.src = imgIntroJs;
@@ -33,5 +33,9 @@ const allTrips = document.getElementsByClassName("all-trips");
 for (let i = 0; i < allTrips.length; i++) {
   allTrips[i].addEventListener("click", showTrips);
 }
+
+document
+  .getElementById("hide-all-trips")
+  .addEventListener("click", hideAllTrips);
 
 export { addTrip, deleteTrip, findAnotherTrip };

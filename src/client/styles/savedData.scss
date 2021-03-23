@@ -26,4 +26,10 @@
 .scheduled-trips {
   padding: 50px;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-hide {
+  margin-bottom: 20px;
 }

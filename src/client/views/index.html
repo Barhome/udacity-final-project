@@ -10,7 +10,7 @@
     <header class="app-header" id="app-header">
       <h1 class="app-title">My Travel Planner</h1>
     </header>
-    <section class="full-height intro-section">
+    <section class="full-height intro-section" id="intro-section">
       <div class="intro-container">
         <div class="img-intro-container">
           <img src="" alt="" id="img-intro" class="img-intro" />
@@ -69,9 +69,11 @@
       </div>
     </section>
     <!-- Saved trips in from local storage -->
-    <h2 class="hide scheduled-trips" id="scheduled-trips">
-      Your Scheduled Trips
-    </h2>
+
+    <div class="hide" id="scheduled-trips">
+      <h2>Your Scheduled Trips</h2>
+      <button class="btn btn-hide" id="hide-all-trips">Hide all Trips</button>
+    </div>
     <section class="trips-grid" id="trips-grid"></section>
   </body>
 </html>

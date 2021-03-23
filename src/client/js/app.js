@@ -1,12 +1,14 @@
 // a placeholder for the data in case the user choose to save data
 
 let tripSaver = {};
+
+//global variable will be used in previewing grid header
+
+const scheduledTrips = document.getElementById("scheduled-trips");
+
 // a placeholder for the data stored in localstorage
 let localTripSaver;
 // get data from local storage
-const scheduledTrips = document.getElementById("scheduled-trips");
-
-let statusDisplay = true;
 
 if (localStorage.getItem("localTripSaver") == null) {
   localTripSaver = [];
@@ -40,6 +42,7 @@ function dateFormat(date) {
   const newFormat = `${year}-${month}-${day}`;
   return newFormat;
 }
+
 // helper function to force the user to insert his date in dd/mm/yyyy format
 
 function checkDate(date) {
@@ -73,7 +76,17 @@ async function handleInputs() {
     .value;
   const tripDate = document.getElementById("trip-date").value;
   const displayInfo = document.getElementById("display-info");
+  //check if city and and country are not empty
 
+  if (
+    !checkEmptyInput(destinationCountry) &&
+    !checkEmptyInput(destinationCity)
+  ) {
+    alert(
+      "Please insert the required search input correctly:Text must not Start with a space"
+    );
+    return;
+  }
   // check if the date was inserted correctly as dd/mm/yyyy ex: 01/12/2021
 
   if (!checkDate(tripDate)) {
@@ -164,7 +177,16 @@ function addTrip() {
   document.getElementById("save-trip").disabled = true;
   alert("Your trip has been saved to your local system:Local Storage");
 }
-
+//helper function to hide all tirps
+function hideAllTrips() {
+  scrollToFindDestination("intro-section");
+  setTimeout(() => {
+    scheduledTrips.classList.remove("scheduled-trips");
+    scheduledTrips.classList.add("hide");
+    document.getElementById("trips-grid").classList.remove("trips-grid");
+    document.getElementById("trips-grid").classList.add("hide");
+  }, 1000);
+}
 // helper function to show all the trips stored in local storage
 
 function showTrips() {
@@ -173,13 +195,21 @@ function showTrips() {
   // check if the local storage is empty
   if (!localTripSaver.length) {
     scheduledTrips.classList.add("hide");
+    scheduledTrips.classList.remove("scheduled-trips");
+    tripsGridNode.classList.add("hide");
+    tripsGridNode.classList.remove("trips-grid");
     tripsGridNode.innerHTML = tripsGrid;
+    scrollToFindDestination("find-destination");
     setTimeout(() => {
       alert("You don't have any saved Trips");
     }, 1000);
+
     return;
   }
   scheduledTrips.classList.remove("hide");
+  scheduledTrips.classList.add("scheduled-trips");
+  tripsGridNode.classList.remove("hide");
+  tripsGridNode.classList.add("trips-grid");
 
   // looping to create a grid
 
@@ -226,16 +256,13 @@ function findAnotherTrip() {
   document.getElementById("show-trip").removeAttribute("disabled");
 }
 
-//helper function to create an element
-function createElementAlert(message) {
-  const showInbody = document.getElementsByTagName("body");
-  const alertMessage = document.createElement("div");
-  alertMessage.classList.add("alert-message");
-  alertMessage.innerHTML = `${message}<button class="btn btn-alert-message">Got it!</button>}`;
-  showInbody.prepend(alertMessage);
+// helper function to check over empty inputs
+function checkEmptyInput(stringValue) {
+  //regex that allows to enter up to 6 seperate words no numbers allowed ex:Rio De Janeiro united kingdom of Emirates
+  const regex = /^[a-z]{1,}\s{0,}[a-z]{0,}\s{0,}[a-z]{0,}\s{0,}[a-z]{0,}\s{0,}[a-z]{0,}\s{0,}[a-z]{0,}\s{0,}/gi;
+  return regex.test(stringValue);
 }
 
-createElementAlert("test element");
 export {
   postUserUrlData,
   handleInputs,
@@ -244,4 +271,5 @@ export {
   showTrips,
   deleteTrip,
   findAnotherTrip,
+  hideAllTrips,
 };
