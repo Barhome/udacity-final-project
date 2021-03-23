@@ -272,4 +272,5 @@ export {
   deleteTrip,
   findAnotherTrip,
   hideAllTrips,
+  dateFormat,
 };

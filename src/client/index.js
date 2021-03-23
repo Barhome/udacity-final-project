@@ -6,6 +6,7 @@ import {
   deleteTrip,
   findAnotherTrip,
   hideAllTrips,
+  dateFormat,
 } from "./js/app";
 import "./styles/header.scss";
 import "./styles/fetchData.scss";
@@ -38,4 +39,4 @@ document
   .getElementById("hide-all-trips")
   .addEventListener("click", hideAllTrips);
 
-export { addTrip, deleteTrip, findAnotherTrip };
+export { addTrip, deleteTrip, findAnotherTrip, dateFormat };
